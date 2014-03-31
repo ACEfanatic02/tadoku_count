@@ -125,5 +125,9 @@ class MainWindow(QtGui.QMainWindow):
                 data = unicode(self.ui.text_edit.document().toPlainText())
                 f.write(data.encode("utf-8"))
         except IOError, e:
-            print u"error: " + unicode(str(e), "utf-8")
-            pass
+            msg_box = QtGui.QMessageBox();
+            msg_box.setIcon(QtGui.QMessageBox.Warning)
+            msg_box.setText(_fromUtf8("Failed to save output to %s." % filename))
+            msg_box.setInformativeText(_fromUtf8("Current text input will not be saved."))
+            msg_box.setStandardButtons(QtGui.QMessageBox.Ok)
+            msg_box.exec_()
