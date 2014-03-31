@@ -81,6 +81,14 @@ class MainWindow(QtGui.QMainWindow):
         self.ui.clear_button.clicked.connect(self.clear)
         self.ui.save_button.clicked.connect(self.save)
 
+        try:
+            with open(os.path.join(os.getcwdu(), "sav", "_buffer.txt")) as f:
+                raw = f.read()
+                self.ui.text_edit.document().setPlainText(unicode(raw, "utf-8"))
+        except IOError, e:
+            # Can't open buffer file, may not exist yet.
+            pass
+
     def count(self):
         chars = self.ui.text_edit.document().characterCount()
         media = {
