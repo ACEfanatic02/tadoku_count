@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import os
+
 from PyQt4 import QtCore, QtGui
 
 from ui.tweet_dialog import TweetDialog
@@ -104,5 +106,16 @@ class MainWindow(QtGui.QMainWindow):
     def clear(self):
         self.ui.text_edit.document().clear()
 
+    def closeEvent(self, event):
+        self.save()
+        event.accept()
+
     def save(self):
-        pass
+        filename = os.path.join(os.getcwdu(), "sav", "_buffer.txt")
+        try:
+            with open(filename, 'wb') as f:
+                data = unicode(self.ui.text_edit.document().toPlainText())
+                f.write(data.encode("utf-8"))
+        except IOError, e:
+            print u"error: " + unicode(str(e), "utf-8")
+            pass

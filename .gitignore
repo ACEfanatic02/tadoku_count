@@ -1,5 +1,8 @@
 *.py[cod]
 
+# saved buffer
+sav
+
 # C extensions
 *.so
 
