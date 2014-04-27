@@ -24,5 +24,7 @@ class TweetDialog(QtGui.QDialog):
 
     def set_tweet(self, count, media):
         TWEET_FMT = "@TadokuBot %d %s;"
-        self.tweet_box.setText(TWEET_FMT % (count, media))
+        tweet_text = TWEET_FMT % (count, media)
+        assert(len(tweet_text) <= 140)
+        self.tweet_box.setText(tweet_text)
         self.tweet_box.selectAll()
